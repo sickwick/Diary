@@ -1,0 +1,5 @@
+db.sqlite3
+gecodriver.log
+__pycache
+__pycache__
+*.pyc
