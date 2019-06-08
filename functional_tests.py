@@ -36,10 +36,11 @@ class NewVisitorTest(unittest.TestCase):
 
         table = self.browser.find_element_by_id('id_list_table')
         rows = table.find_elements_by_tag_name('tr')
-        self.assertTrue(
-            any(row.text == '1: Create online-shop' for row in rows),
-            "New element didn't add at the table"
-        )
+        # self.assertTrue(
+        #     any(row.text == '1: Create online-shop' for row in rows),
+        #     f"New element didn't add in the table. Content: \n {table.text}"
+        # )
+        self.assertIn('1: Create online-shop', [row.text for row in rows])
 
         # Conclusion the test
         self.fail("Conclude the test")

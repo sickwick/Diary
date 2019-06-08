@@ -4,7 +4,12 @@
 </head>
 <body>
 	<h1>Your Diary list</h1>
-	<input id="id_list_item" placeholder="Enter some cases"/>
-	<table id="id_list_table"></table>
+	<form method="POST">
+	<input id="id_list_item" placeholder="Enter some cases" name="item_text"/>
+		{% csrf_token %}
+	</form>
+	<table id="id_list_table">
+		<tr><td>{{ new_item_text }}</td></tr>
+	</table>
 </body>
 </html>
