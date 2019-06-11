@@ -13,6 +13,11 @@ class NewVisitorTest(unittest.TestCase):
         # Close browser
         self.browser.quit()
 
+    def check_for_row_in_list_table(self, row_text):
+        table = self.browser.find_element_by_id('id_list_table')
+        rows = table.find_elements_by_tag_name('tr')
+        self.assertIn(row_text, [row.text for row in rows])
+
     def test_can_start_list_and_retrieve_it_later(self):
         # The announcement of page address
         self.browser.get('http://localhost:8000')
@@ -34,17 +39,18 @@ class NewVisitorTest(unittest.TestCase):
         inputbox.send_keys(Keys.ENTER)
         time.sleep(1)
 
-        table = self.browser.find_element_by_id('id_list_table')
-        rows = table.find_elements_by_tag_name('tr')
-        # self.assertTrue(
-        #     any(row.text == '1: Create online-shop' for row in rows),
-        #     f"New element didn't add in the table. Content: \n {table.text}"
-        # )
-        self.assertIn('1: Create online-shop', [row.text for row in rows])
+        self.check_for_row_in_list_table('1: Create online-shop')
 
+        inputbox = self.browser.find_element_by_id('id_list_item')
+        inputbox.send_keys('Upload on the internet')
+        inputbox.send_keys(Keys.ENTER)
+        time.sleep(1)
+
+        self.check_for_row_in_list_table('2: Upload on the internet')
+        self.check_for_row_in_list_table('1: Create online-shop')
         # Conclusion the test
         self.fail("Conclude the test")
 
 
 if __name__ == '__main__':
-    unittest.main()
+    unittest.main(warnings = 'ignore')
