@@ -1,9 +1,10 @@
 from selenium import webdriver
+from django.test import LiveServerTestCase
 from selenium.webdriver.common.keys import Keys
-import unittest, time
+import time
 
 
-class NewVisitorTest(unittest.TestCase):
+class NewVisitorTest(LiveServerTestCase):
 
     def setUp(self):
         # The announcement the browser
@@ -20,7 +21,7 @@ class NewVisitorTest(unittest.TestCase):
 
     def test_can_start_list_and_retrieve_it_later(self):
         # The announcement of page address
-        self.browser.get('http://localhost:8000')
+        self.browser.get(self.live_server_url)
 
         # Search for "Diary" word in the title
         self.assertIn("Diary", self.browser.title)
@@ -50,7 +51,3 @@ class NewVisitorTest(unittest.TestCase):
         self.check_for_row_in_list_table('1: Create online-shop')
         # Conclusion the test
         self.fail("Conclude the test")
-
-
-if __name__ == '__main__':
-    unittest.main(warnings = 'ignore')
