@@ -69,6 +69,7 @@ class NewVisitorTest(LiveServerTestCase):
         self.assertRegex(edith_list_url, '/lists/.+')
 
         self.browser.quit()
+        self.browser = webdriver.Firefox()
         self.browser.get(self.live_server_url)
         page_text = self.browser.find_element_by_tag_name('body').text
         self.assertNotIn('Create online-shop',page_text)
