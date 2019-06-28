@@ -3,8 +3,8 @@ from django.urls import path
 from lists import views, urls
 
 urlpatterns = [
-    url(r'^$', views.home_page, name='home'),
-    url(r'^lists/',include(urls)),
+    url(r'^$', views.home_page, name = 'home'),
+    url(r'^lists/', include(urls)),
 ]
 
 # urlpatterns = [
@@ -12,4 +12,3 @@ urlpatterns = [
 #     path('lists/new', views.new_list, name='new_list'),
 #     path('lists/(.+)/', views.view_list, name='view_list'),
 # ]
-

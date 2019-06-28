@@ -5,7 +5,9 @@
 <body>
 	<h1>Start your Diary list</h1>
 	<form method="POST" action="/lists/new">
-	<input id="id_list_item" placeholder="Enter some cases" name="item_text"/>
+		<p style="text-align:center">
+			<input id="id_list_item" placeholder="Enter some cases" name="item_text"/>
+		</p>
 		{% csrf_token %}
 	</form>
 </body>

@@ -65,15 +65,15 @@ class NewVisitorTest(LiveServerTestCase):
         inputbox.send_keys('Create online-shop')
         inputbox.send_keys(Keys.ENTER)
         self.wait_for_row_in_list_table('1: Create online-shop')
-        edith_list_url =self.browser.current_url
+        edith_list_url = self.browser.current_url
         self.assertRegex(edith_list_url, '/lists/.+')
 
         self.browser.quit()
         self.browser = webdriver.Firefox()
         self.browser.get(self.live_server_url)
         page_text = self.browser.find_element_by_tag_name('body').text
-        self.assertNotIn('Create online-shop',page_text)
-        self.assertNotIn('Upload on the internet',page_text)
+        self.assertNotIn('Create online-shop', page_text)
+        self.assertNotIn('Upload on the internet', page_text)
 
         inputbox = self.browser.find_element_by_id('id_list_item')
         inputbox.send_keys('Buy new book')
@@ -84,5 +84,20 @@ class NewVisitorTest(LiveServerTestCase):
         self.assertNotEqual(francis_list_url, edith_list_url)
 
         page_text = self.browser.find_element_by_tag_name('body').text
-        self.assertNotIn('Create online-shop',page_text)
-        self.assertIn('Buy new book',page_text)
+        self.assertNotIn('Create online-shop', page_text)
+        self.assertIn('Buy new book', page_text)
+
+    def test_layout_and_styling(self):
+        self.browser.get(self.live_server_url)
+        self.browser.set_window_size(1024, 768)
+
+        inputbox = self.browser.find_element_by_id('id_list_item')
+        inputbox.send_keys('testing')
+        inputbox.send_keys(Keys.ENTER)
+        self.wait_for_row_in_list_table('1: testing')
+        inputbox = self.browser.find_element_by_id('id_list_item')
+        self.assertAlmostEqual(
+            inputbox.location['x'] + inputbox.size['width'] / 2,
+            512,
+            delta = 10
+        )
